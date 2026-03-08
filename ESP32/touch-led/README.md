@@ -1,4 +1,4 @@
-# ESP32-2 — Capacitive Touch Reader with LED Control
+# ESP32-2 — Touch Led
 
 **Author:** Bruno Santos  
 **Board:** ESP32 DOIT DevKit — ESP32-WROOM-32D  
