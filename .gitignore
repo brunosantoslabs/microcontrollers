@@ -1,0 +1,47 @@
+# ============================================================
+# .gitignore for Arduino IDE Projects
+# Author: Bruno Santos
+# ============================================================
+
+# ----- Arduino IDE Build Output -----
+build/
+*.bin
+*.hex
+*.elf
+*.map
+
+# Arduino IDE 2.x cache
+.arduino15/
+cache/
+
+# ----- OS Generated Files -----
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# Windows
+desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# ----- IDE & Editor Files -----
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# ----- Logs & Temp Files -----
+*.log
+tmp/
+temp/
+
+# ----- Sensitive / Personal Config -----
+secrets.h
+credentials.h
+config_local.h
