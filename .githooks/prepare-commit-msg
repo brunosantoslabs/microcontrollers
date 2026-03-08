@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# =============================================================
+# Git Hook: prepare-commit-msg
+# Author: Bruno Santos
+# Description: Prompts for task ID and type, then generates a
+#              conventional commit message with description template.
+# =============================================================
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+
+if [ -n "$COMMIT_SOURCE" ]; then
+    exit 0
+fi
+
+TYPES=("feat" "fix" "refactor" "docs" "test" "chore" "style")
+
+echo ""
+echo "┌─────────────────────────────────────────┐"
+echo "│         ESP32 Commit Helper             │"
+echo "└─────────────────────────────────────────┘"
+echo ""
+
+read -rp "  Task ID (e.g. ESP32-1) or ENTER to skip: " TASK_ID
+
+echo ""
+echo "  Commit type:"
+for i in "${!TYPES[@]}"; do
+    printf "    [%d] %s\n" "$((i+1))" "${TYPES[$i]}"
+done
+echo ""
+read -rp "  Choose [1-${#TYPES[@]}] (default: 1): " TYPE_CHOICE
+TYPE_CHOICE=${TYPE_CHOICE:-1}
+COMMIT_TYPE="${TYPES[$((TYPE_CHOICE-1))]}"
+
+echo ""
+read -rp "  Scope (e.g. esp32, wifi, sensor) or ENTER to skip: " SCOPE
+
+echo ""
+read -rp "  Short description: " SHORT_DESC
+
+if [ -n "$SCOPE" ]; then
+    TITLE="${COMMIT_TYPE}(${SCOPE}): ${SHORT_DESC}"
+else
+    TITLE="${COMMIT_TYPE}: ${SHORT_DESC}"
+fi
+
+{
+    echo "$TITLE"
+    echo ""
+    echo "- "
+    echo "- "
+    echo "- "
+    echo ""
+    if [ -n "$TASK_ID" ]; then
+        echo "Refs: $TASK_ID"
+    fi
+} > "$COMMIT_MSG_FILE"
+
+echo ""
+echo "  ✔ Commit message generated. Complete the bullet points in your editor."
+echo ""
